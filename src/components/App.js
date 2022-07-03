@@ -41,6 +41,10 @@ function App() {
     setIdForTodo(prevIdForTodo => prevIdForTodo + 1)
   }
 
+  function deleteTodo(id) {
+    setTodos([...todos].filter(todo => todo.id !== id));
+  }
+
   function handleInput(event) {
     setTodoInput(event.target.value)
   }
@@ -63,13 +67,13 @@ function App() {
 
         <ul className="todo-list">
           {todos.map((todo, index) => (
-            <li className="todo-item-container">
+            <li key={todo.id} className="todo-item-container">
               <div className="todo-item">
                 <input type="checkbox" />
                 <span className="todo-item-label">{todo.title}</span>
                 {/* <input type="text" className="todo-item-input" value="Finish React Series" /> */}
               </div>
-              <button className="x-button">
+              <button onClick={() => deleteTodo(todo.id)} className="x-button">
                 <svg
                   className="x-button-icon"
                   fill="none"
