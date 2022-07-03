@@ -21,13 +21,41 @@ function App() {
     },
   ]);
 
+  const [todoInput, setTodoInput] = useState('');
+  const [idForTodo, setIdForTodo] = useState(4);
+
+  function addTodo(event) {
+    event.preventDefault();
+
+    if(todoInput.trim().length === 0) {
+      return;
+    }
+
+    setTodos([...todos, {
+      id:  idForTodo,
+      title: todoInput,
+      isComplete: false,
+    }]);
+
+    setTodoInput('')
+    setIdForTodo(prevIdForTodo => prevIdForTodo + 1)
+  }
+
+  function handleInput(event) {
+    setTodoInput(event.target.value)
+  }
+
+
+
   return (
     <div className="todo-app-container">
       <div className="todo-app">
         <h2>Todo App</h2>
-        <form action="#">
+        <form action="#" onSubmit={addTodo}>
           <input
             type="text"
+            value={todoInput}
+            onChange={handleInput}
             className="todo-input"
             placeholder="What do you need to do?"
           />
